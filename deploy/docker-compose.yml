@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  nextjs:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: nextjs_app
+    expose:
+      - "3000"
+    networks:
+      - web
+
+  caddy:
+    image: caddy:alpine
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - web
+
+networks:
+  web:
+
+volumes:
+  caddy_data:
+  caddy_config:
