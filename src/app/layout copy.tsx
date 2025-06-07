@@ -25,7 +25,7 @@ export default function RootLayout({
             <Navbar></Navbar>
           </header>
           <main className="min-h-screen sm:mt-15 mt-0">{children}</main>
-          <footer className="w-full h-10  col-span-2"></footer>
+          <footer className="w-full h-10  col-span-2">FOOTER</footer>
         </div>
       </body>
     </html>

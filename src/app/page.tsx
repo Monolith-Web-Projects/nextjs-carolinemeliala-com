@@ -1,21 +1,14 @@
 import { CarouselPlugin } from "@/components/custom/CarouselPlugin";
+import Fashion from "./fashion/page";
+import Commercial from "./commercial/page";
+import Editorial from "./editorial/page";
 
 export default function Home() {
   return (
     <div className="p-4 flex flex-col justify-center items-center">
-      <h1>MAIN CONTENT</h1>
-      <div className="border-8 w-screen h-fit sm:w-3/4">
-        <CarouselPlugin
-          images={[
-            "/muse.png",
-            "/muse.png",
-            "/muse.png",
-            "/muse.png",
-            "/muse.png",
-            "/muse.png",
-          ]}
-        ></CarouselPlugin>
-      </div>
+      <Fashion></Fashion>
+      <Commercial></Commercial>
+      <Editorial></Editorial>
     </div>
   );
 }

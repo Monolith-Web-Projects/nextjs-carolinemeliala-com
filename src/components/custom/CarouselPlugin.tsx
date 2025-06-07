@@ -28,11 +28,11 @@ export function CarouselPlugin({ images, headline }: CarouselPluginProps) {
         loop: true,
       }}
     >
-      <CarouselContent className="w-auto min-h-150">
+      <CarouselContent className="w-auto min-h-150 ">
         {images.map((src, index) => (
-          <CarouselItem key={index} className="basis-1/4">
+          <CarouselItem key={index} className="sm:basis-1/2 basis-5/6 h-150">
             <Image
-              className="h-4/5 w-full object-cover"
+              className="w-full object-contain h-150"
               src={src}
               alt={`Images Number: ${index + 1}`}
               width={2000}
