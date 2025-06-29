@@ -1,15 +1,15 @@
 "use client";
-// import ProductCard from "./ProductCard";
 import CartPreview from "./CartPreview";
 import { useCartStore } from "@/stores/cartStore";
 import { X, ShoppingBag } from "lucide-react";
 import { useState } from "react";
+import { CheckoutWindowToggle } from "./CheckoutWindow";
 
-type ShoppingCartButtonProps = {
+type SideBarToogleProps = {
   shoppingCartClicked: (value: boolean) => void;
 };
 
-function ShoppingCartButton({ shoppingCartClicked }: ShoppingCartButtonProps) {
+function SideBarToogle({ shoppingCartClicked }: SideBarToogleProps) {
   const handleClick = () => shoppingCartClicked(true);
   const cart = useCartStore((state) => state.cart);
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
@@ -31,11 +31,10 @@ function ShoppingCartButton({ shoppingCartClicked }: ShoppingCartButtonProps) {
 
 export default function CartSidebar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [checkoutClicked, setcheckoutClicked] = useState(false);
 
   return (
     <>
-      <ShoppingCartButton shoppingCartClicked={setIsOpen}></ShoppingCartButton>
+      <SideBarToogle shoppingCartClicked={setIsOpen}></SideBarToogle>
       {isOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50"
@@ -58,27 +57,13 @@ export default function CartSidebar() {
 
           <div className="my-1 border-t opacity-70"></div>
         </div>
-        <div className="h-screen translate-y-20 overflow-y-scroll">
+        <div className="h-[80vh] translate-y-20 overflow-y-scroll">
           {/* CONTENT */}
           <CartPreview></CartPreview>
         </div>
 
         <div className="fixed bottom-0 w-[90%] h-fit pb-5">
-          <button
-            id="button-cart-checkout"
-            className={`w-full rounded-lg px-6 py-3 text-sm font-semibold shadow-sm transition-all duration-500 ease-[cubic-bezier(0.2,0.6,0.7,2)]
-    ${
-      checkoutClicked
-        ? "bg-black text-gray-300 border-3 border-gray-400"
-        : "bg-black text-white hover:bg-white hover:text-black"
-    }`}
-            onClick={() => {
-              setcheckoutClicked(true);
-              setTimeout(() => setcheckoutClicked(false), 100);
-            }}
-          >
-            Checkout
-          </button>
+          <CheckoutWindowToggle></CheckoutWindowToggle>
         </div>
       </aside>
     </>

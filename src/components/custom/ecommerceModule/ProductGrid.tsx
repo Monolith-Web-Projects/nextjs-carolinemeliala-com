@@ -29,17 +29,17 @@ export const ProductGrid = () => {
   };
 
   return (
-    <section>
+    <section className="grid md:grid-cols-2 grid-cols-1 gap-4 justify-items-center">
       {mockProducts.map((product: ProductGridProps) => (
         <div
           key={product.productId}
           style={{ boxShadow: "-7px 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
-          className="h-fit w-120 rounded-md border border-gray-200 bg-white grid grid-cols-[1fr_2fr] grid-rows-1 gap-2 p-2"
+          className="w-auto h-auto min-h-90 max-w-120 rounded-md border border-gray-200 bg-white grid grid-cols-[1fr_2fr] grid-rows-1 gap-2 p-2"
         >
           <div className="relative size-full rounded-md border border-gray-200">
             {product.productImage && (
               <Image
-                className="object-cover"
+                className="object-cover select-none"
                 src={product.productImage}
                 alt="product image"
                 fill={true}
@@ -81,7 +81,7 @@ export const ProductGrid = () => {
 const AddToCartButton = ({ onAddToCart, ...item }: AddToCartButtonProps) => (
   <button
     onClick={() => onAddToCart(item)}
-    className="rounded-full bg-black px-5 py-2 text-sm font-medium text-white transition hover:bg-gray-800 shadow-md"
+    className="select-none rounded-full bg-black px-5 py-2 text-sm font-medium text-white transition hover:bg-gray-800 shadow-md"
   >
     Add to Cart
   </button>

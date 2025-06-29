@@ -1,17 +1,21 @@
 import SubscribeBanner from "@/components/custom/SubscribeBanner";
-import CartSidebar from "@/components/custom/CartSidebar";
-import { ProductGrid } from "@/components/custom/ProductGrid";
+import CartSidebar from "@/components/custom/ecommerceModule/CartSidebar";
+import { ProductGrid } from "@/components/custom/ecommerceModule/ProductGrid";
+import { CheckoutWindowProvider } from "@/components/custom/ecommerceModule/CheckoutWindowContext";
+import CheckoutWindow from "@/components/custom/ecommerceModule/CheckoutWindow";
 
 export default function Tests() {
   return (
-    <div className="p-4 flex flex-col justify-center items-center">
-      {/* <SubscribeBanner></SubscribeBanner> */}
-      <CartSidebar></CartSidebar>
+    <CheckoutWindowProvider>
+      <div className="p-4 flex flex-col justify-center items-center">
+        {/* <SubscribeBanner></SubscribeBanner> */}
+        <CheckoutWindow></CheckoutWindow>
+        <CartSidebar></CartSidebar>
 
-      <div className="flex flex-wrap border-8 sm:w-[75vw] w-screen">
-        <ProductGrid></ProductGrid>
+        <div className="sm:w-[75vw] w-screen">
+          <ProductGrid></ProductGrid>
+        </div>
       </div>
-      {/* <Sidebar></Sidebar> */}
-    </div>
+    </CheckoutWindowProvider>
   );
 }

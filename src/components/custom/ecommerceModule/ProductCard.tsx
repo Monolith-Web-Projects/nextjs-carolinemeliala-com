@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ProductQuantityButton from "./ProductQuantityButton";
+// import ProductQuantityButton from "./ProductQuantityButton";
 
 type ProductCardProps = {
   ProductImages?: string;
@@ -29,7 +29,7 @@ export default function ProductCard({
 
           <div className="flex justify-between">
             <p className="text-sm">Quantity</p>
-            <ProductQuantityButton></ProductQuantityButton>
+            {/* <ProductQuantityButton></ProductQuantityButton> */}
           </div>
         </div>
       </div>

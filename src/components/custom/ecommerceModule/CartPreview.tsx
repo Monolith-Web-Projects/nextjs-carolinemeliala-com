@@ -1,11 +1,62 @@
 "use client";
 
 import Image from "next/image";
+import { Minus, Plus } from "lucide-react";
 import { CartItem, useCartStore } from "@/stores/cartStore";
+
+type ProductQuantityButtonProps = {
+  productId: string;
+  quantity: number;
+  min?: number;
+  max?: number;
+};
 
 type GroupedCartItem = CartItem & {
   totalPricePerProduct: number;
 };
+
+function ProductQuantityButton({
+  quantity = 1,
+  productId,
+  min = 1,
+  max = 99,
+}: ProductQuantityButtonProps) {
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+
+  const decrease = () => {
+    if (quantity <= min) {
+      removeFromCart(productId);
+    } else {
+      updateQuantity(productId, -1);
+    }
+  };
+  const increase = () => {
+    if (quantity < max) {
+      updateQuantity(productId, 1);
+    }
+  };
+
+  return (
+    <div className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm">
+      <button
+        onClick={decrease}
+        className="text-gray-600 hover:text-black disabled:opacity-40"
+        disabled={quantity <= min}
+      >
+        <Minus className="h-4 w-4" />
+      </button>
+      <span className="w-6 text-center font-medium">{quantity}</span>
+      <button
+        onClick={increase}
+        className="text-gray-600 hover:text-black disabled:opacity-40"
+        disabled={quantity >= max}
+      >
+        <Plus className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
 
 export default function CartPreview() {
   const cart = useCartStore((state) => state.cart);
@@ -43,7 +94,7 @@ export default function CartPreview() {
         >
           <div className="relative h-40 w-40 flex-shrink-0">
             <Image
-              className="object-cover rounded-2xl shadow-lg"
+              className="object-cover rounded-2xl shadow-lg select-none"
               src={item.productImage}
               alt={item.productName}
               fill
@@ -53,10 +104,13 @@ export default function CartPreview() {
           <div className="p-5">
             <h5 className="my-1 text-lg font-semibold">{item.productName}</h5>
             <p className="my-2 text-sm text-gray-700">{item.productPrice}</p>
-            <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
             <p className="text-sm text-gray-600">
               Total Price: {item.totalPricePerProduct}
             </p>
+            <ProductQuantityButton
+              productId={item.productId}
+              quantity={item.quantity}
+            ></ProductQuantityButton>
           </div>
         </div>
       ))}
