@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { mockProducts } from "@/lib/products";
+// import { mockProducts } from "@/components/custom/ecommerceModule/data/products";
+import { useEffect, useState } from "react";
+import { callProducts } from "@/components/custom/ecommerceModule/data/handle_api";
 import { useCartStore } from "@/stores/cartStore";
 import { CartItem } from "@/stores/cartStore";
 
@@ -28,9 +30,17 @@ export const ProductGrid = () => {
     console.log("Cart:", useCartStore.getState().cart);
   };
 
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    callProducts().then((data) => {
+      setProducts(data);
+    });
+  }, []);
+
   return (
     <section className="grid md:grid-cols-2 grid-cols-1 gap-4 justify-items-center">
-      {mockProducts.map((product: ProductGridProps) => (
+      {products.map((product: ProductGridProps) => (
         <div
           key={product.productId}
           style={{ boxShadow: "-7px 10px 15px -3px rgba(0, 0, 0, 0.1)" }}

@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { Minus, Plus } from "lucide-react";
-import { CartItem, useCartStore } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/cartStore";
+import { getGroupedCartItems } from "@/components/custom/ecommerceModule/logic/cartDataHandler";
+
 
 type ProductQuantityButtonProps = {
   productId: string;
@@ -11,9 +13,6 @@ type ProductQuantityButtonProps = {
   max?: number;
 };
 
-type GroupedCartItem = CartItem & {
-  totalPricePerProduct: number;
-};
 
 function ProductQuantityButton({
   quantity = 1,
@@ -59,23 +58,9 @@ function ProductQuantityButton({
 }
 
 export default function CartPreview() {
-  const cart = useCartStore((state) => state.cart);
 
-  const groupedCart = Object.values(
-    cart.reduce((acc, item) => {
-      if (!acc[item.productId]) {
-        acc[item.productId] = {
-          ...item,
-          totalPricePerProduct: item.productPrice * item.quantity,
-        };
-      } else {
-        acc[item.productId].quantity += item.quantity;
-        acc[item.productId].totalPricePerProduct +=
-          item.productPrice * item.quantity;
-      }
-      return acc;
-    }, {} as Record<string, GroupedCartItem>)
-  );
+  const cart = useCartStore((state) => state.cart);
+  const groupedCart = getGroupedCartItems(cart);
 
   if (cart.length === 0) {
     return (

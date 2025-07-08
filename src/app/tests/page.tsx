@@ -1,6 +1,6 @@
 import SubscribeBanner from "@/components/custom/SubscribeBanner";
-import CartSidebar from "@/components/custom/ecommerceModule/CartSidebar";
 import { ProductGrid } from "@/components/custom/ecommerceModule/ProductGrid";
+import CartSidebar from "@/components/custom/ecommerceModule/CartSidebar";
 import { CheckoutWindowProvider } from "@/components/custom/ecommerceModule/CheckoutWindowContext";
 import CheckoutWindow from "@/components/custom/ecommerceModule/CheckoutWindow";
 
