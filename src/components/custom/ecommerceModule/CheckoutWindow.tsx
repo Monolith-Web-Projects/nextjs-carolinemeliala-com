@@ -25,12 +25,12 @@ const CheckoutForm = () => {
     const API_URL = "http://localhost:3000";
 
     try {
-      const response = await fetch(`${{API_URL}}/api/checkout`, {
-        method: POST,
+      const response = await fetch(`${{ API_URL }}/api/checkout`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form), 
+        body: JSON.stringify(form),
       });
 
       if (!response.ok) {
@@ -39,11 +39,9 @@ const CheckoutForm = () => {
 
       const result = await response.json();
       console.log("Order Placed:", form);
-
     } catch (error) {
       console.error("Error placing order: ", error);
     }
-
   };
 
   return (
