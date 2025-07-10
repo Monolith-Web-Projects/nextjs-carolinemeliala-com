@@ -17,17 +17,17 @@ FROM node:24-alpine AS runner
 ENV NODE_ENV=production
 WORKDIR /app
 
-# Optional: Install tools in the production container
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libpq-dev \
+
+# Install Alpine packages (equivalent tools)
+RUN apk add --no-cache \
+    build-base \
+    libpq \
     netcat-openbsd \
     curl \
     nano \
     tree \
     zip \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
+    unzip
 
 
 # Copy runtime files only
