@@ -18,7 +18,17 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 # Optional: Install tools in the production container
-RUN apk add --no-cache nano tree zip unzip bash
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    netcat-openbsd \
+    curl \
+    nano \
+    tree \
+    zip \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
 
 # Copy runtime files only
 COPY --from=builder /app/public ./public
