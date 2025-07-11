@@ -8,11 +8,15 @@ export default async function Fashion() {
   let fashionSlides = mockfashionSlides; // fallback if backend is down
 
   try {
+    console.log('👉 Fetching:', `${urlConfig.apiBaseUrl}/slides/`);
     const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
     if (!res.ok) throw new Error("API Error");
     const data = await res.json();
+    console.log("👉 Getting reponse:", `${data.fashion}`);
     fashionSlides = data.fashion || mockfashionSlides;
-  } catch (e) {}
+  } catch (e) {
+    console.error("🛑 Failed to fetch slides", e);
+  }
 
   return (
     <div className="p-4 flex flex-col justify-center items-center">
