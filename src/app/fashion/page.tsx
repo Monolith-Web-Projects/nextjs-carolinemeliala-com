@@ -1,4 +1,4 @@
-// "use client";
+export const dynamic = "force-dynamic";
 import { CarouselPlugin } from "@/components/custom/CarouselPlugin";
 import { fashionSlides as mockfashionSlides } from "@/data/slides";
 // import { useFashionSlides } from "@/data/api";
@@ -8,7 +8,7 @@ export default async function Fashion() {
   let fashionSlides = mockfashionSlides; // fallback if backend is down
 
   try {
-    console.log('👉 Fetching:', `${urlConfig.apiBaseUrl}/slides/`);
+    console.log("👉 Fetching:", `${urlConfig.apiBaseUrl}/slides/`);
     const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
     if (!res.ok) throw new Error("API Error");
     const data = await res.json();

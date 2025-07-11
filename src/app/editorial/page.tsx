@@ -1,4 +1,4 @@
-// "use client";
+export const dynamic = "force-dynamic";
 import { CarouselPlugin } from "@/components/custom/CarouselPlugin";
 import { editorialSlides as mockeditorialSlides } from "@/data/slides";
 // import { useEditorialSlides } from "@/data/api";
