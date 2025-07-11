@@ -2,25 +2,22 @@ export const dynamic = "force-dynamic";
 import { logToFile } from "@/lib/logger";
 import { CarouselPlugin } from "@/components/custom/CarouselPlugin";
 import { fashionSlides as mockfashionSlides } from "@/data/slides";
-// import { useFashionSlides } from "@/data/api";
 import { urlConfig } from "@/lib/urlConfig";
 
 export default async function Fashion() {
-  let fashionSlides = mockfashionSlides; // fallback if backend is down
+  let fashionSlides = mockfashionSlides;
 
   try {
-    logToFile("👉 Fetching:", `${urlConfig.apiBaseUrl}/slides/`);
     const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
     if (!res.ok) throw new Error("API Error");
     const data = await res.json();
-    logToFile("👉 Getting reponse:", `${data.fashion}`);
     fashionSlides = Array.isArray(data.fashion)
       ? data.fashion
       : typeof data.fashion === "string"
       ? data.fashion.split(",")
       : mockfashionSlides;
   } catch (e) {
-    console.error("🛑 Failed to fetch slides", e);
+    logToFile("🛑 Failed to fetch slides", e);
   }
 
   return (
