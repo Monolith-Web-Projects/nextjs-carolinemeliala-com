@@ -14,7 +14,11 @@ export default async function Fashion() {
     if (!res.ok) throw new Error("API Error");
     const data = await res.json();
     logToFile("👉 Getting reponse:", `${data.fashion}`);
-    fashionSlides = data.fashion || mockfashionSlides;
+    fashionSlides = Array.isArray(data.fashion)
+      ? data.fashion
+      : typeof data.fashion === "string"
+      ? data.fashion.split(",")
+      : mockfashionSlides;
   } catch (e) {
     console.error("🛑 Failed to fetch slides", e);
   }
