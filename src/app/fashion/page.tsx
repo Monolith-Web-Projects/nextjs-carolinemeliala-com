@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { logToFile } from "@/lib/logger";
 import { CarouselPlugin } from "@/components/custom/CarouselPlugin";
 import { fashionSlides as mockfashionSlides } from "@/data/slides";
