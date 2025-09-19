@@ -1,7 +1,9 @@
+// For using
+// const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
+
 // export const urlConfig = {
   // apiBaseUrl: "http://localhost:8000/api",
 // };
-
 
 export const urlConfig = {
   apiBaseUrl:

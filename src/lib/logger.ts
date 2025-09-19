@@ -4,6 +4,7 @@ import path from "path";
 
 /**
  * Appends a log message to a file on the server.
+ * Use this to print logs: logToFile("🛑 Failed to fetch slides", e);
  * @param args - Any values to log (will be joined with spaces)
  */
 export function logToFile(...args: any[]) {

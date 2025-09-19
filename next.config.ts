@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'www.net-a-porter.com',
+        hostname: 'drive.google.com',
         pathname: '/**',
       },
     ],

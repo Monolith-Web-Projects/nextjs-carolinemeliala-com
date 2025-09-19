@@ -1,54 +1,56 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { useState, useEffect } from "react";
 import { urlConfig } from "@/lib/urlConfig";
+import { logToFile } from "@/lib/logger";
+import { fashionSlides,commercialSlides,editorialSlides } from "./slides";
 
-export const useFashionSlides = () => {
-    const [fashionSlides, setFashionSlides] = useState([]);
-    useEffect(() => {
-        const fetchFashionSlides = async () => {
-            const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
-            const data = await res.json();
-            setFashionSlides(data.fashion);
-        }
-        fetchFashionSlides();
-    }, []);
-    return fashionSlides;
+export interface SlidesData {
+    fashion: string[];
+    editorial: string[];
+    commercial: string[];
 }
 
-export const useCommercialSlides = () => {
-    const [commercialSlides, setCommercialSlides] = useState([]);
-    useEffect(() => {
-        const fetchCommercialSlides = async () => {
-            const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
-            const data = await res.json();
-            setCommercialSlides(data.commercial);
-        }
-        fetchCommercialSlides();
-    }, []);
-    return commercialSlides;
-}
+export const getAllSlides = async (): Promise<SlidesData> => {
+    const defaultData: SlidesData = {
+        fashion: fashionSlides,
+        editorial: editorialSlides,
+        commercial: commercialSlides,
+    };
+        logToFile("Calling_URL: ",`${urlConfig.apiBaseUrl}`,"/slides/");
 
-export const useEditorialSlides = () => {
-    const [editorialSlides, setEditorialSlides] = useState([]);
-    useEffect(() => {
-        const fetchEditorialSlides = async () => {
-            const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
-            const data = await res.json();
-            setEditorialSlides(data.editorial);
-        }
-        fetchEditorialSlides();
-    }, []);
-    return editorialSlides;
-}
+    try {
+        const res = await fetch(`${urlConfig.apiBaseUrl}/slides/`);
+        if (!res.ok) {
+            logToFile("RES:", res.status, res.statusText);
+            throw new Error("❌ API Failed");
+        } 
+        
+        const data = await res.json();
+        logToFile("✅ API Success");
+        logToFile("RES:", JSON.stringify(data, null, 0));
 
+        return {
+            fashion: Array.isArray(data.fashion)
+                ? data.fashion
+                : typeof data.fashion === "string"
+                ? data.fashion.split(",")
+                : defaultData.fashion,
 
+            commercial: Array.isArray(data.commercial)
+                ? data.commercial
+                : typeof data.commercial === "string"
+                ? data.commercial.split(",")
+                : defaultData.commercial,
 
-
-
-
-
-
-
-// export const fashionSlides = slides.fashion;
-// export const commercialSlides = slides.commercial;
-// export const editorialSlides = slides.editorial;
+            editorial: Array.isArray(data.editorial)
+                ? data.editorial
+                : typeof data.editorial === "string"
+                ? data.editorial.split(",")
+                : defaultData.editorial,
+        };
+    } catch (e: any) {
+        logToFile("🛑 Network Failure:");
+        logToFile("RES: ", 
+            JSON.stringify({message: e.message, cause: e.cause, stack: e.stack,},null,0)
+        );
+        return defaultData;
+    }
+};

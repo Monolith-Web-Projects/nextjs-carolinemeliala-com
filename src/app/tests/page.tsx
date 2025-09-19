@@ -11,7 +11,6 @@ export default function Tests() {
         {/* <SubscribeBanner></SubscribeBanner> */}
         <CheckoutWindow></CheckoutWindow>
         <CartSidebar></CartSidebar>
-
         <div className="sm:w-[75vw] w-screen">
           <ProductGrid></ProductGrid>
         </div>
